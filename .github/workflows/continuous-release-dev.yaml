@@ -1,0 +1,75 @@
+name: Continuous Release (DEV)
+
+on:
+  workflow_dispatch:
+    permissions:
+      contents: write
+      packages: write
+    inputs:
+      releaseVersion:
+        description: "Name of the release version"
+        required: true
+        default: "X.Y.Z"
+      developmentVersion:
+        description: "New version that will be used for development"
+        required: true
+        default: "X.Y.Z-SNAPSHOT"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: action/checkout@v4
+
+      - name: Set up Maven
+        uses: s4u/setup-maven-action@v1.12.0
+        with:
+          java-version: 21
+          maven-version: 3.9.6
+
+      - name: Configure Git user
+        run: |
+          git config --global user.name "Github Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Clean release
+        run: mvn --batch-mode release:clean -s $GITHUB_WORKSPACE/.github/maven/settings.xml
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare release
+        run: mvn --batch-mode --update-snapshots release:prepare -s $GITHUB_WORKSPACE/.github/maven/settings.xml -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Perform release
+        run: mvn --batch-mode release:perform -s $GITHUB_WORKSPACE/.github/maven/settings.xml
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Changelog
+        id: changelog
+        uses: metcalfc/changelog-generator@v4.3.1
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: false
+          prerelease: false
+          name: Release v${{ github.event.inputs.releaseVersion }}
+          tag_name: v${{ github.event.inputs.releaseVersion }}
+          body: ${{ steps.changelog.outputs.changelog }}
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
