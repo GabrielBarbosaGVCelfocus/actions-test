@@ -54,11 +54,11 @@ jobs:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Generate Changelog
+      - name: Create changelog
         id: changelog
-        uses: metcalfc/changelog-generator@v4.3.1
+        uses: mikepenz/release-changelog-builder-action@v4
         with:
-          myToken: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release
         id: create_release
