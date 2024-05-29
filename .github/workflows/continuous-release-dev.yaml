@@ -49,7 +49,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Perform release
-        run: mvn --batch-mode release:perform -s $GITHUB_WORKSPACE/.github/maven/settings.xml
+        run: mvn --batch-mode release:perform -s $GITHUB_WORKSPACE/.github/maven/settings.xml -Darguments="-Dmaven.deploy.skip=true"
         env:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
