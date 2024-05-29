@@ -52,22 +52,12 @@ jobs:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Generate changelog
-        uses: heinrichreimer/action-github-changelog-generator@v2.4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-
       - name: Create Release
         id: create_release
-        uses: softprops/action-gh-release@v2
-        with:
-          draft: false
-          prerelease: false
-          name: Release v${{ github.event.inputs.releaseVersion }}
-          tag_name: v${{ github.event.inputs.releaseVersion }}
-          body: ${{ steps.changelog.outputs.changelog }}
         env:
-          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+        run: >-
+          gh release create ${{ github.ref_name }}
+          "Release v${{ github.event.inputs.releaseVersion }}"
+          --generate-notes
+          --title "Version ${{ github.event.inputs.releaseVersion }}"
