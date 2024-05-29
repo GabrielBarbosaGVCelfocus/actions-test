@@ -2,9 +2,6 @@ name: Continuous Release (DEV)
 
 on:
   workflow_dispatch:
-    permissions:
-      contents: write
-      packages: write
     inputs:
       releaseVersion:
         description: "Name of the release version"
@@ -15,12 +12,13 @@ on:
         required: true
         default: "X.Y.Z-SNAPSHOT"
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
