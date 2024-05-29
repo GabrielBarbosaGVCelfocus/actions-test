@@ -52,12 +52,17 @@ jobs:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Release
+      - name: Create archive
+        id: create_archive
+        run: >-
+          git archive -o "release-${{ github.event.inputs.releaseVersion }}.zip" ${{ github.ref_name }}
+
+      - name: Create release
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: >-
           gh release create ${{ github.ref_name }}
-          "Release v${{ github.event.inputs.releaseVersion }}"
+          "release-v${{ github.event.inputs.releaseVersion }}.zip"
           --generate-notes
           --title "Version ${{ github.event.inputs.releaseVersion }}"
