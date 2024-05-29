@@ -15,7 +15,19 @@
 	<description>Test for GitHub actions releases</description>
 	<properties>
 		<java.version>21</java.version>
+		<repository-owner>GabrielBarbosaGVCelfocus</repository-owner>
+		<repository-name>actions-test</repository-name>
 	</properties>
+
+	<scm>
+		<!-- @formatter:off -->
+		<url>https://github.com/${repository-owner}/${repository-name}.git</url>
+		<connection>scm:git:https://github.com/${repository-owner}/${repository-name}.git</connection>
+		<developerConnection>scm:git:https://github.com/${repository-owner}/${repository-name}.git</developerConnection>
+		<tag>HEAD</tag>
+		<!-- @formatter:on -->
+	</scm>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
