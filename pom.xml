@@ -28,6 +28,13 @@
 		<!-- @formatter:on -->
 	</scm>
 
+	<distributionManagement>
+		<repository>
+			<id>actions-test-maven</id>
+			<url>https://maven.pkg.github.com/${repository-owner}/${repository-name}</url>
+		</repository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
