@@ -55,7 +55,7 @@ jobs:
       - name: Create archive
         id: create_archive
         run: >-
-          git archive -o "release-${{ github.event.inputs.releaseVersion }}.zip" ${{ github.ref_name }}
+          git archive -o "release-v${{ github.event.inputs.releaseVersion }}.zip" ${{ github.ref_name }}
 
       - name: Create release
         id: create_release
