@@ -52,6 +52,23 @@ jobs:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        id: aws-credentials
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          output-credentials: true
+
+      - name: Upload To ECR
+        run: mvn --batch-mode --update-snapshots clean package -P cd -s $GITHUB_WORKSPACE/.github/maven/settings.xml
+        env:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AWS_ACTOR: ${{ secrets.AWS_ACTOR }}
+          AWS_TOKEN: ${{ steps.aws-credentials.outputs.aws-session-token }}
+
       - name: Create archive
         id: create_archive
         run: >-
