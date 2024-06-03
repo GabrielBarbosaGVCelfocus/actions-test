@@ -8,7 +8,7 @@
 		<version>1.0.3</version>
 	</parent>
 	<artifactId>actions.test</artifactId>
-	<version>0.1.12-SNAPSHOT</version>
+	<version>0.1.13-SNAPSHOT</version>
 	<name>actions.test</name>
 	<description>Test for GitHub actions releases</description>
 	<properties>
