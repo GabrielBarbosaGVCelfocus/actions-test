@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.oneweb</groupId>
 	<parent>
-		<groupId>com.celfocus.assets.oneweb.framework</groupId>
-		<artifactId>framework-parent</artifactId>
-		<version>1.0.3</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.3.0</version>
 	</parent>
 	<artifactId>actions.test</artifactId>
 	<version>0.1.13-SNAPSHOT</version>
@@ -25,13 +25,6 @@
 		<tag>HEAD</tag>
 		<!-- @formatter:on -->
 	</scm>
-
-	<repositories>
-		<repository>
-			<id>oneweb-maven</id>
-			<url>https://maven.pkg.github.com/oneweb-net/FulfillmentHub-Framework-Parent</url>
-		</repository>
-	</repositories>
 
 	<distributionManagement>
 		<repository>
@@ -68,7 +61,7 @@
 						<artifactId>jib-maven-plugin</artifactId>
 						<configuration>
 							<to>
-								<image>${project.ci-registry.url}/${project.artifactId}</image>
+								<image>ghcr.io/GabrielBarbosaGVCelfocus/actions-test:latest</image>
 							</to>
 						</configuration>
 					</plugin>
