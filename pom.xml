@@ -8,7 +8,7 @@
 		<version>3.3.0</version>
 	</parent>
 	<artifactId>actions.test</artifactId>
-	<version>0.1.16</version>
+	<version>0.1.17-SNAPSHOT</version>
 	<name>actions.test</name>
 	<description>Test for GitHub actions releases</description>
 	<properties>
@@ -22,7 +22,7 @@
 		<url>https://github.com/${repository-owner}/${repository-name}.git</url>
 		<connection>scm:git:https://github.com/${repository-owner}/${repository-name}.git</connection>
 		<developerConnection>scm:git:https://github.com/${repository-owner}/${repository-name}.git</developerConnection>
-		<tag>actions.test-0.1.16</tag>
+		<tag>HEAD</tag>
 		<!-- @formatter:on -->
 	</scm>
 
