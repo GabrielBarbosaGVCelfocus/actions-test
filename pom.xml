@@ -26,6 +26,13 @@
 		<!-- @formatter:on -->
 	</scm>
 
+	<repositories>
+		<repository>
+			<id>oneweb-maven</id>
+			<url>https://maven.pkg.github.com/oneweb-net/FulfillmentHub-Framework-Parent</url>
+		</repository>
+	</repositories>
+
 	<distributionManagement>
 		<repository>
 			<id>actions-test-maven</id>
