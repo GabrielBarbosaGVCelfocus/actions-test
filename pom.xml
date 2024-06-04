@@ -70,6 +70,10 @@
 						<configuration>
 							<to>
 								<image>ghcr.io/gabrielbarbosagvcelfocus/actions-test:latest</image>
+								<auth>
+									<username>${env.GITHUB_ACTOR}</username>
+									<password>${env.GITHUB_TOKEN}</password>
+								</auth>
 							</to>
 						</configuration>
 					</plugin>

@@ -41,19 +41,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare release
-        run: mvn --batch-mode --update-snapshots release:prepare -s $GITHUB_WORKSPACE/.github/maven/settings.xml -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
+        run: mvn --batch-mode --update-snapshots release:prepare -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
         env:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Perform release
-        run: mvn --batch-mode release:perform -s $GITHUB_WORKSPACE/.github/maven/settings.xml -Darguments="-Dmaven.deploy.skip=true"
+        run: mvn --batch-mode release:perform -Darguments="-Dmaven.deploy.skip=true"
         env:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload To GHCR
-        run: mvn --batch-mode --update-snapshots clean package -P cd -s $GITHUB_WORKSPACE/.github/maven/settings.xml
+        run: mvn --batch-mode --update-snapshots clean package -P cd
         env:
           GITHUB_ACTOR: ${{ secrets.PERSONAL_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
